@@ -39,6 +39,8 @@
         </div>
     </div>
 
+    <button id="collectMoney">Collect money</button>
+
 
 
     <script src="{{ asset('js/game.js') }}"></script>

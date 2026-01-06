@@ -10,10 +10,8 @@ use Nette\Utils\Json;
 
 class GameController extends Controller
 {
-    public function loadStats(IncomeCalc $income){
+    public function loadStats(){
         $user = auth()->user();
-
-        $income->calc($user);
 
         return response()->json([
             'name' => $user->name,
@@ -37,6 +35,24 @@ class GameController extends Controller
         return response()->json($response);
     }
 
+    public function collectResources(IncomeCalc $income){
+        $user = auth()->user();
+
+        $income->calc($user);
+
+        return response()->json([
+            'message' => 'Collected money'
+        ]);
+    }
+
+    public function checkCollectable(IncomeCalc $income){
+        $user = auth()->user();
+
+        $earned = $income->calc2($user);  // get array of earned resources
+
+        return response()->json($earned);
+    }
+
     public function upgrade(Request $request, UpgradeCost $costCalc){
         $building = $request->input('building');
         $user = auth()->user();
@@ -45,19 +61,28 @@ class GameController extends Controller
         $currentLevel = $user->$levelField;
 
         $cost = $costCalc->cost($building, $currentLevel);
+        $userResources = [$user->money, $user->wood, $user->stone];
+        $canBuy = true;
 
-        if ($user->money < $cost){
+        for ($i = 0; $i < 3; $i++){
+            if ($cost[$i] > $userResources[$i]){
+                $canBuy = false;
+                break;
+            }
+        }
+
+        if (!$canBuy){
             return response()->json(['message' => 'Not enough money'], 400);
         }
 
-        $user->money -= $cost;
+        $user->money -= $cost[0];
+        $user->wood -= $cost[1];
+        $user->stone -= $cost[2];
         $user->$levelField++;
         $user->save();
 
         return response()->json([
-            'message' => 'Successfuly upgraded',
-            'money' => $user->money,
-            $levelField = $user->$levelField
+            'message' => 'Successfuly upgraded'
         ]);
     }
 }

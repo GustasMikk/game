@@ -20,4 +20,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/loadStats', [GameController::class, 'loadStats']);
     Route::post('/upgrade', [GameController::class, 'upgrade']);
     Route::get('/loadPrices', [GameController::class, 'loadPrices']);
+    Route::get('/collectResources', [GameController::class, 'collectResources']);
+    Route::get('/checkCollectable', [GameController::class, 'checkCollectable']);
 });

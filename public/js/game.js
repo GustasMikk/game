@@ -15,10 +15,11 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
     window.location.href = '/';
 });
 
-// buttons for upgrading
+// buttons
 document.getElementById('upgradeLumbermill').addEventListener('click', () => upgrade('lumber_mill'));
 document.getElementById('upgradeQuarry').addEventListener('click', () => upgrade('quarry'));
 document.getElementById('upgradeFarm').addEventListener('click', () => upgrade('farm'));
+document.getElementById('collectMoney').addEventListener('click', () => collectResources());
 
 // load stats
 
@@ -50,6 +51,49 @@ function loadStats(){
     .catch(err => console.error(err));
 }
 
+// collect resources
+
+function collectResources(){
+    fetch('/api/collectResources',{
+        method: 'get',
+        headers: {
+            credentials: 'same-origin',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(res => {
+        if(!res.ok) throw new Error("Not Auth");
+        return res.json();
+    })
+    .then(data => {
+        checkCollectable();
+        loadStats();
+    })
+    .catch(err => console.error(err));
+}
+
+// check what resources are collected
+
+function checkCollectable(){
+    fetch('/api/checkCollectable',{
+        method: 'get',
+        headers: {
+            credentials: 'same-origin',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(res => {
+        if(!res.ok) throw new Error("Not Auth");
+        return res.json();
+    })
+    .then(data => {
+        document.getElementById('collectMoney').textContent = data.money + ' Money,  ' + data.wood + ' Wood,  ' + data.stone + ' Stone,  ' + data.food + ' Food:  Collect';
+    })
+    .catch(err => console.error(err));
+}
+
 // load prices
 
 function loadPrices(){
@@ -66,9 +110,9 @@ function loadPrices(){
         return res.json();
     })
     .then(data => {
-        document.getElementById('upgradeLumbermill').textContent = "Upgrade cost: " + data.lumber_mill + " coins";
-        document.getElementById('upgradeQuarry').textContent = "Upgrade cost: " + data.quarry + " coins";
-        document.getElementById('upgradeFarm').textContent = "Upgrade cost: " + data.farm + " coins";
+        document.getElementById('upgradeLumbermill').textContent = "Upgrade cost: " + data.lumber_mill.money + " coins";
+        document.getElementById('upgradeQuarry').textContent = "Upgrade cost: " + data.quarry.money + " coins, " + data.quarry.wood + " wood";
+        document.getElementById('upgradeFarm').textContent = "Upgrade cost: " + data.farm.money + " coins, " + data.farm.wood + " wood, " + data.farm.stone + " stone";
     })
     .catch(err => console.error(err));
 }
@@ -100,7 +144,7 @@ function upgrade(building){
 }
 
 // load data every 2s
-setInterval(loadStats, 2000);
+setInterval(checkCollectable, 2000);
 
 loadStats();
 loadPrices();
