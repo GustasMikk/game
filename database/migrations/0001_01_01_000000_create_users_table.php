@@ -28,6 +28,8 @@ return new class extends Migration
             $table->integer('lumber_mill_level');
             $table->integer('quarry_level');
             $table->integer('farm_level');
+
+            $table->timestamp('last_income_at')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
