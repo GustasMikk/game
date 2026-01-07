@@ -35,8 +35,9 @@ class UserController extends Controller
 
             'lumber_mill_level' => 0,
             'quarry_level' => 0,
-            'farm_level' => 0
+            'farm_level' => 0,
 
+            'achievment_level' => 0,
         ]);
 
         $token = $user->createToken('api-token')->plainTextToken;

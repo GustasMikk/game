@@ -12,6 +12,8 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
+Route::get('/getLeaderboard', [GameController::class, 'getLeaderboard']);
+
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [UserController::class, 'logout']);
@@ -22,4 +24,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/loadPrices', [GameController::class, 'loadPrices']);
     Route::get('/collectResources', [GameController::class, 'collectResources']);
     Route::get('/checkCollectable', [GameController::class, 'checkCollectable']);
+    Route::get('/getAchievments', [GameController::class, 'getAchievments']);
 });

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
+use Nette\Utils\Json;
 use App\Game\IncomeCalc;
+use App\Game\Achievments;
 use App\Game\UpgradeCost;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Nette\Utils\Json;
 
 class GameController extends Controller
 {
@@ -48,7 +50,7 @@ class GameController extends Controller
     public function checkCollectable(IncomeCalc $income){
         $user = auth()->user();
 
-        $earned = $income->calc2($user);  // get array of earned resources
+        $earned = $income->calc2($user);
 
         return response()->json($earned);
     }
@@ -84,5 +86,62 @@ class GameController extends Controller
         return response()->json([
             'message' => 'Successfuly upgraded'
         ]);
+    }
+
+    public function getAchievments(Achievments $achievments){
+        $user = auth()->user();
+
+        $response = $achievments->getAchievments();
+        $userResources = [$user->money, $user->wood, $user->stone, $user->food];
+        $achievmentLevel = $user->achievment_level;
+        $achieved = true;
+
+        for ($i = $achievmentLevel; $i < 4; $i++){
+            $achieved = true;
+            $key = 'achievment' . ($i+1);
+            $neededResources = [$response[$key]['money'], $response[$key]['wood'], $response[$key]['stone'], $response[$key]['food']];
+
+            for ($j = 0; $j < 4; $j++){
+                if ($userResources[$j] < $neededResources[$j]){
+                    $achieved = false;
+                    break;
+                }
+            }
+
+            if ($achieved){
+                $user->achievment_level++;
+            }
+        }
+
+        $user->save();
+        $result = [];
+        $achievmentLevel = $user->achievment_level;
+
+        for ($i = 0; $i < 4; $i++){
+            $a = 'true';
+            if(($i+1) > $achievmentLevel){
+                $a = 'false';
+            }
+
+
+            $key = 'achievment' . ($i+1);
+            $result[] = [
+                'name' => $response[$key]['name'],
+                'achieved' => $a
+            ];
+        }
+
+
+        return response()->json($result);
+    }
+
+    public function getLeaderboard(){
+        $topPlayers = User::select('name')
+        ->selectRaw('(lumber_mill_level + quarry_level + farm_level) as total_level')
+        ->orderByDesc('total_level')
+        ->limit(50)
+        ->get();
+
+        return response()->json($topPlayers);
     }
 }

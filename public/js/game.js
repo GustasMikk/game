@@ -19,7 +19,15 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
 document.getElementById('upgradeLumbermill').addEventListener('click', () => upgrade('lumber_mill'));
 document.getElementById('upgradeQuarry').addEventListener('click', () => upgrade('quarry'));
 document.getElementById('upgradeFarm').addEventListener('click', () => upgrade('farm'));
+
 document.getElementById('collectMoney').addEventListener('click', () => collectResources());
+
+const openBtn = document.getElementById('showLeaderboard');
+const closeBtn = document.getElementById('closeLeaderboard');
+
+ //
+const container = document.getElementById('achievments');
+const popup = document.getElementById('leaderboardPopup');
 
 // load stats
 
@@ -69,6 +77,7 @@ function collectResources(){
     .then(data => {
         checkCollectable();
         loadStats();
+        getAchievments();
     })
     .catch(err => console.error(err));
 }
@@ -143,8 +152,72 @@ function upgrade(building){
     loadPrices();
 }
 
+// get and render achievements
+function getAchievments(){
+    fetch('/api/getAchievments',{
+        method: 'get',
+        headers: {
+            credentials: 'same-origin',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(res => {
+        if(!res.ok) throw new Error("Not Auth");
+        return res.json();
+    })
+    .then(data => {
+        console.log(data);
+
+        container.innerHTML = '';
+
+        data.forEach(a => {
+            const unlocked = a.achieved === 'true';
+            container.innerHTML += `
+                <div class="achievement${unlocked ? 'Unlocked' : 'Locked'}">
+                    <strong>${a.name}</strong>
+                    <span>Status: ${unlocked ? '✓ Achieved' : '❌ Locked'}</span>
+                </div>
+             `;
+        });
+    })
+    .catch(err => console.error(err));
+}
+
+// leaderboard functions
+async function getLeaderboard(){
+    const response = await fetch('/api/getLeaderboard');
+    const data = await response.json();
+    console.log(data);
+
+    const container = document.getElementById('leaderboardContainer');
+    container.innerHTML = '';
+
+    data.forEach((player, index) =>{
+        const div = document.createElement('div');
+        div.className = 'players';
+        div.innerHTML = `
+            <span>#${index + 1}</span>
+            <span>${player.name}</span>
+            <span>Total building levels: ${player.total_level}</span>
+        `;
+        container.appendChild(div);
+    });
+}
+
+openBtn.addEventListener('click', () => {
+    popup.style.display = 'block';
+    getLeaderboard();
+});
+
+closeBtn.addEventListener('click', () => {
+    popup.style.display = 'none';
+});
+
 // load data every 2s
 setInterval(checkCollectable, 2000);
 
+// load on page load
+getAchievments();
 loadStats();
 loadPrices();

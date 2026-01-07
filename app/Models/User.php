@@ -31,6 +31,8 @@ class User extends Authenticatable
         'lumber_mill_level',
         'quarry_level',
         'farm_level',
+
+        'achievment_level'
     ];
 
     /**

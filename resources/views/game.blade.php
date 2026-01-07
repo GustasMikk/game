@@ -41,6 +41,19 @@
 
     <button id="collectMoney">Collect money</button>
 
+    <div id="achievments"></div>
+
+    <!-- Leaderboard Popup -->
+    <div id="leaderboardPopup" class="popup">
+    <div class="popup-content">
+        <span id="closeLeaderboard" class="close">&times;</span>
+        <h2>Leaderboard</h2>
+        <div id="leaderboardContainer"></div>
+    </div>
+    </div>
+
+    <!-- Button to open leaderboard -->
+    <button id="showLeaderboard">Show Leaderboard</button>
 
 
     <script src="{{ asset('js/game.js') }}"></script>
