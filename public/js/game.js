@@ -25,9 +25,13 @@ document.getElementById('collectMoney').addEventListener('click', () => collectR
 const openBtn = document.getElementById('showLeaderboard');
 const closeBtn = document.getElementById('closeLeaderboard');
 
- //
+const infoBtn = document.getElementById('showInfo');
+const infoCloseBtn = document.getElementById('closeInfo');
+
+//
 const container = document.getElementById('achievments');
 const popup = document.getElementById('leaderboardPopup');
+const infoPopup = document.getElementById('infoPopup');
 
 // load stats
 
@@ -98,7 +102,7 @@ function checkCollectable(){
         return res.json();
     })
     .then(data => {
-        document.getElementById('collectMoney').textContent = data.money + ' Money,  ' + data.wood + ' Wood,  ' + data.stone + ' Stone,  ' + data.food + ' Food:  Collect';
+        document.getElementById('collectedResources').innerHTML = `Coins: ${data.money}<br>Wood: ${data.wood}<br>Stone: ${data.stone}<br>Food: ${data.food}<br>`;
     })
     .catch(err => console.error(err));
 }
@@ -153,6 +157,7 @@ function upgrade(building){
 }
 
 // get and render achievements
+
 function getAchievments(){
     fetch('/api/getAchievments',{
         method: 'get',
@@ -167,16 +172,14 @@ function getAchievments(){
         return res.json();
     })
     .then(data => {
-        console.log(data);
-
-        container.innerHTML = '';
+        container.innerHTML = '<h1>Achievements</h1>';
 
         data.forEach(a => {
             const unlocked = a.achieved === 'true';
             container.innerHTML += `
                 <div class="achievement${unlocked ? 'Unlocked' : 'Locked'}">
                     <strong>${a.name}</strong>
-                    <span>Status: ${unlocked ? '✓ Achieved' : '❌ Locked'}</span>
+                    <span>${unlocked ? '✓ Achieved' : '❌ Locked'}</span>
                 </div>
              `;
         });
@@ -185,23 +188,40 @@ function getAchievments(){
 }
 
 // leaderboard functions
+
 async function getLeaderboard(){
     const response = await fetch('/api/getLeaderboard');
     const data = await response.json();
-    console.log(data);
 
-    const container = document.getElementById('leaderboardContainer');
-    container.innerHTML = '';
+    const container1 = document.getElementById('leaderboardContainer1');
+    const container2 = document.getElementById('leaderboardContainer2');
+
+    container1.innerHTML = '';
+    container2.innerHTML = '';
 
     data.forEach((player, index) =>{
-        const div = document.createElement('div');
-        div.className = 'players';
-        div.innerHTML = `
+        if(index <25){
+            const div = document.createElement('div');
+
+            div.className = 'players';
+            div.innerHTML = `
             <span>#${index + 1}</span>
             <span>${player.name}</span>
             <span>Total building levels: ${player.total_level}</span>
-        `;
-        container.appendChild(div);
+            `;
+            container1.appendChild(div);
+        }
+        else{
+            const div = document.createElement('div');
+
+            div.className = 'players';
+            div.innerHTML = `
+            <span>#${index + 1}</span>
+            <span>${player.name}</span>
+            <span>Total building levels: ${player.total_level}</span>
+            `;
+            container2.appendChild(div);
+        }
     });
 }
 
@@ -212,6 +232,17 @@ openBtn.addEventListener('click', () => {
 
 closeBtn.addEventListener('click', () => {
     popup.style.display = 'none';
+});
+
+// open and close info
+
+infoBtn.addEventListener('click', () => {
+    infoPopup.style.display = 'block';
+    getLeaderboard();
+});
+
+infoCloseBtn.addEventListener('click', () => {
+    infoPopup.style.display = 'none';
 });
 
 // load data every 2s

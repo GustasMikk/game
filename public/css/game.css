@@ -1,5 +1,6 @@
 body{
     font-family: Arial, Helvetica, sans-serif;
+    background-color: blanchedalmond;
 }
 
 .top{
@@ -7,7 +8,7 @@ body{
     flex-direction: row;
     width: 100%;
     gap: 30px;
-    height: 100px;
+    height: 10vh;
 }
 
 .greeting{
@@ -25,12 +26,13 @@ body{
 
 .greeting h2{
     margin: 0px;
+    font-size: 4vh;
 }
 
 .greeting button{
     width: 50%;
-    height: 25px;
-    font-size: 15px;
+    height: 3.5vh;
+    font-size: 2vh;
 
     background-color: red;
 
@@ -47,28 +49,34 @@ body{
     display: flex;
     flex-direction: row;
     gap:30px;
-
-    font-size: 25px;;
+    width: 100%;
+    font-size: 5vh;;
 }
 
 .resource{
     background-color: burlywood;
     padding: 10px;
     border-radius: 10px;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .buildings{
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 .building{
     margin: 30px;
-    font-size: 30px;
-    padding: 5px;
+    font-size: 3.5vh;
+    padding: 10px;
+    width: 20vw;
 
-    border-style: solid;
-    border-color: black;
+    border-style: none;
     border-width: 3px;
     border-radius: 30px;
     background-color: coral;
@@ -78,11 +86,22 @@ body{
     align-items: center;
 }
 
+.building p{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.building img{
+    width: 100%;
+    border-radius: 20px;
+}
+
 .building button{
-    font-size: 20px;
+    font-size: 2vh;
     width: 100%;
     height: 70px;
-    border-radius: 25px;
+    border-radius: 20px;
+    border-style: none;
     background-color: greenyellow;
 }
 
@@ -90,37 +109,95 @@ body{
     background-color: green;
 }
 
+.resourcesCollection{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+.collectedResources{
+    width: 20vw;
+    text-align: center;
+    background-color: burlywood;
+    border-radius: 10px;
+    font-size: 2vw;
+}
 
+.resourcesCollection button{
+    margin-top: 10px;
+    width: 20vw;
+    border-radius: 10px;
+    border-style: none;
+    font-size: 2vw;
+    background-color: greenyellow;
+}
 
+.resourcesCollection button:hover{
+    background-color: green;   
+}
 
+.btn{
+    width: 23.2vw;
+    border-radius: 10px;
+    border-style: none;
+    background-color: lightgray;
+    margin-top: 5px;
+    font-size: 2vh;
+}
 
+.btn:hover{
+    background-color: lightslategray;
+}
 
-/* Full screen overlay */
+.achievments{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    font-size: 2vh;
+}
+
+.achievementLocked{
+    width: 25%;
+    padding: 3px;
+    background-color: darkgrey;
+
+    border-radius: 5px;
+}
+
+.achievementUnlocked{
+    width: 25%;
+    padding: 3px;
+    background-color: greenyellow;
+
+    border-radius: 5px;
+}
+
 .popup {
-    display: none; /* hidden by default */
+    display: none; 
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5); /* semi-transparent black */
-    z-index: 1000; /* on top of everything */
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
 }
 
-/* Centered content box */
 .popup-content {
     background-color: #fff;
     margin: 10% auto;
+    margin-top: 1%;
     padding: 20px;
-    width: 80%;
-    max-width: 500px;
+    width: 45vw;
+    height: 70vh;
     border-radius: 10px;
     text-align: center;
     position: relative;
+    font-size: 2vh;
 }
 
-/* Close button */
 .close {
     position: absolute;
     top: 10px;
@@ -128,3 +205,43 @@ body{
     font-size: 24px;
     cursor: pointer;
 }
+
+.leaderboardContainers{
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    justify-content: space-evenly;
+}
+
+.leaderboardContainer1{
+    width: 100%;
+}
+
+.leaderboardContainer2{
+    width: 100%;
+}
+
+.info{
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.info-content{
+    background-color: #fff;
+    margin: 10% auto;
+    margin-top: 20%;
+    padding: 20px;
+    width: 45vw;
+    height: 15vh;
+    border-radius: 10px;
+    text-align: left;
+    position: relative;
+    font-size: 2vh;
+}
+

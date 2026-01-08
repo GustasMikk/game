@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 //use Illuminate\Foundation\Auth\User;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
@@ -22,6 +24,18 @@ class UserController extends Controller
             'email.unique' => 'This email is already registered.',
             'password.min' => 'Password must be at least 8 characters.'
         ]);
+
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => config('recaptcha.secret_key'),
+            'response' => $request->input('g-recaptcha-response'),
+            'remoteip' => $request->ip(),
+        ]);
+
+        $result = $response->json();
+
+        if (! ($result['success'] ?? false)) {
+            return back()->withErrors(['captcha' => 'CAPTCHA verification failed']);
+        }
 
         $user = User::create([
             'name' => $data['name'],
@@ -55,7 +69,19 @@ class UserController extends Controller
             'name' => ['required'],
             'password' => ['required']
         ]);
+    
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => config('recaptcha.secret_key'),
+            'response' => $request->input('g-recaptcha-response'),
+            'remoteip' => $request->ip(),
+        ]);
 
+        $result = $response->json();
+
+        if (! ($result['success'] ?? false)) {
+            return back()->withErrors(['captcha' => 'CAPTCHA verification failed']);
+        }
+        
         $user = User::where('name', $credentials['name'])->first();
 
         if (! $user || ! Hash::check($credentials['password'], $user->password)) {

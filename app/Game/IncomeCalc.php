@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Validation\Rules\Can;
 
 Class IncomeCalc{
+
+    // collect income
     public function calc(User $user): void{
         $now = Carbon::now();
         $last = $user->last_income_at ?? $now;
@@ -29,7 +31,8 @@ Class IncomeCalc{
             'food' => $user->farm_level
         ];
 
-        $cap = 1000;
+        $levels = $user->lumber_mill_level + $user->quarry_level + $user->farm_level;
+        $cap = 1000 * (intval($levels / 10) + 1);
 
         foreach($income as $resource => $rate) {
             $earned = round($rate * $seconds);
@@ -61,7 +64,8 @@ Class IncomeCalc{
             'food' => $user->farm_level
         ];
 
-        $cap = 1000;
+        $levels = $user->lumber_mill_level + $user->quarry_level + $user->farm_level;
+        $cap = 1000 * (intval($levels / 10) + 1);
 
         $resources = [
             'money' => 0,

@@ -1,0 +1,45 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: blanchedalmond;   
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: 100vh;
+}
+
+h1{
+    font-size: 10vh;
+    text-shadow: -2px 2px red;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+input{
+    font-size: 5vh;
+    border-radius: 5px;
+
+    box-shadow: -2px 2px 3px gray;
+}
+
+button{
+    font-size: 4vh;
+    border-radius: 5px;
+    
+    box-shadow: -2px 2px 3px gray;
+}
+
+button:hover{
+    background-color: lightgray;
+}
+
+.g-recaptcha{
+    text-align: center;
+}
