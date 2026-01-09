@@ -96,7 +96,7 @@ class GameController extends Controller
         $achievmentLevel = $user->achievment_level;
         $achieved = true;
 
-        for ($i = $achievmentLevel; $i < 4; $i++){
+        for ($i = $achievmentLevel; $i < 8; $i++){
             $achieved = true;
             $key = 'achievment' . ($i+1);
             $neededResources = [$response[$key]['money'], $response[$key]['wood'], $response[$key]['stone'], $response[$key]['food']];
@@ -117,7 +117,7 @@ class GameController extends Controller
         $result = [];
         $achievmentLevel = $user->achievment_level;
 
-        for ($i = 0; $i < 4; $i++){
+        for ($i = 0; $i < 8; $i++){
             $a = 'true';
             if(($i+1) > $achievmentLevel){
                 $a = 'false';

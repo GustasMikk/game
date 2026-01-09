@@ -22,6 +22,7 @@ body{
     border-radius: 10px;
 
     width: 30%;
+    box-shadow: -4px 4px 3px rgb(85, 85, 85)
 }
 
 .greeting h2{
@@ -38,6 +39,7 @@ body{
 
     border-style: none;
     border-radius: 10px;
+    box-shadow: -4px 4px 3px rgb(85, 85, 85);
 }
 
 .greeting button:hover{
@@ -62,6 +64,8 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+
+    box-shadow: -3px 3px 3px rgb(85, 85, 85);
 }
 
 .buildings{
@@ -84,6 +88,9 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    /*box-shadow: -4px 4px 3px rgb(85, 85, 85);
+    rotate: 1 1 0 15deg;*/
 }
 
 .building p{
@@ -122,6 +129,7 @@ body{
     background-color: burlywood;
     border-radius: 10px;
     font-size: 2vw;
+    box-shadow: 0px 4px 3px rgb(85, 85, 85);
 }
 
 .resourcesCollection button{
@@ -131,6 +139,7 @@ body{
     border-style: none;
     font-size: 2vw;
     background-color: greenyellow;
+    box-shadow: 0px 4px 3px rgb(85, 85, 85);
 }
 
 .resourcesCollection button:hover{
@@ -142,8 +151,9 @@ body{
     border-radius: 10px;
     border-style: none;
     background-color: lightgray;
-    margin-top: 5px;
+    margin-top: 10px;
     font-size: 2vh;
+    box-shadow: -2px 2px 3px rgb(85, 85, 85)
 }
 
 .btn:hover{

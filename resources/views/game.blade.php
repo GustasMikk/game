@@ -27,21 +27,21 @@
     <button id="showInfo" class="btn">Game INFO</button>
 
     <div class="buildings">
-        <div class="building">
-            <img src="{{ asset('photos/lumbermill.png') }}" alt="">
+        <div class="building" style="rotate: 0.5 1 0 10deg; box-shadow: -4px 4px 3px rgb(85, 85, 85)">
+            <img src="{{ asset('photos/lumbermill.png') }}" alt="" style="box-shadow: -4px 4px 3px rgb(85, 85, 85)">
             <p id="lumbermill">Lumbermill level: 0</p>
-            <button id="upgradeLumbermill">Upgrade cost: x</button> 
+            <button id="upgradeLumbermill" style="box-shadow: -4px 4px 3px rgb(85, 85, 85)">Upgrade cost: x</button> 
         </div>
-        <div class="building">
-            <img src="{{ asset('photos/quarry.png') }}" alt="">
+        <div class="building" style="box-shadow: 0px 4px 3px rgb(85, 85, 85)">
+            <img src="{{ asset('photos/quarry.png') }}" alt="" style="box-shadow: 0px 4px 3px rgb(85, 85, 85)">
             <p id="quarry">Quarry level: 0</p>
-            <button id="upgradeQuarry">Upgrade cost: x</button>
+            <button id="upgradeQuarry" style="box-shadow: 0px 4px 3px rgb(85, 85, 85)">Upgrade cost: x</button>
         </div>
 
-        <div class="building">
-            <img src="{{ asset('photos/farm.png') }}" alt="">
+        <div class="building" style="rotate: -0.5 1 0 10deg; box-shadow: 4px 4px 3px rgb(85, 85, 85)">
+            <img src="{{ asset('photos/farm.png') }}" alt="" style="box-shadow: 4px 4px 3px rgb(85, 85, 85)"> 
             <p id="farm">Farm level: 0</p>
-            <button id="upgradeFarm">Upgrade cost: x</button>
+            <button id="upgradeFarm" style="box-shadow: 4px 4px 3px rgb(85, 85, 85)">Upgrade cost: x</button>
         </div>
     </div>
 
