@@ -1,14 +1,19 @@
+@media (max-width: 767px)
+{
 body{
+    width: 100vw;
     font-family: Arial, Helvetica, sans-serif;
     background-color: blanchedalmond;
 }
 
 .top{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    
+
+
     width: 100%;
     gap: 30px;
-    height: 10vh;
 }
 
 .greeting{
@@ -17,17 +22,12 @@ body{
     align-items: center;
     justify-content: center;
 
-    background-color: burlywood;
     padding: 10px;
     border-radius: 10px;
+    background-color: burlywood;
 
-    width: 30%;
+    /*width: 100%;*/
     box-shadow: -4px 4px 3px rgb(85, 85, 85)
-}
-
-.greeting h2{
-    margin: 0px;
-    font-size: 4vh;
 }
 
 .greeting button{
@@ -42,20 +42,15 @@ body{
     box-shadow: -4px 4px 3px rgb(85, 85, 85);
 }
 
-.greeting button:hover{
-    background-color: darkred;
-
-}
-
 .resources{
     display: flex;
-    flex-direction: row;
-    gap:30px;
-    width: 100%;
-    font-size: 5vh;;
+    gap: 20px;
+
 }
 
 .resource{
+    width: 50%;
+
     background-color: burlywood;
     padding: 10px;
     border-radius: 10px;
@@ -68,9 +63,24 @@ body{
     box-shadow: -3px 3px 3px rgb(85, 85, 85);
 }
 
+.btn{
+    width: 100%;
+    border-radius: 10px;
+    border-style: none;
+    background-color: lightgray;
+    margin-top: 10px;
+    font-size: 2vh;
+    box-shadow: -2px 2px 3px rgb(85, 85, 85)
+}
+
+.greeting button:hover{
+    background-color: darkred;
+
+}
+
 .buildings{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -78,7 +88,7 @@ body{
     margin: 30px;
     font-size: 3.5vh;
     padding: 10px;
-    width: 20vw;
+    width: 100;
 
     border-style: none;
     border-width: 3px;
@@ -88,54 +98,14 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-}
 
-.building1{
-    rotate: 0.5 1 0 10deg;
     box-shadow: -4px 4px 3px rgb(85, 85, 85);
-}
-
-.building1 button{
-    box-shadow: -4px 4px 3px rgb(85, 85, 85);
-}
-
-.building1 img{
-    box-shadow: -4px 4px 3px rgb(85, 85, 85);
-}
-
-.building2{
-    box-shadow: 0px 4px 3px rgb(85, 85, 85);
-}
-
-.building2 button{
-    box-shadow: 0px 4px 3px rgb(85, 85, 85);
-}
-
-.building2 img{
-    box-shadow: 0px 4px 3px rgb(85, 85, 85);
-}
-
-.building3{
-    rotate: -0.5 1 0 10deg; 
-    box-shadow: 4px 4px 3px rgb(85, 85, 85);
-}
-
-.building3 button{
-    box-shadow: 4px 4px 3px rgb(85, 85, 85);
-}
-
-.building3 img{
-    box-shadow: 4px 4px 3px rgb(85, 85, 85);
-}
-
-.building p{
-    margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 .building img{
     width: 100%;
     border-radius: 20px;
+    box-shadow: -4px 4px 3px rgb(85, 85, 85);
 }
 
 .building button{
@@ -145,6 +115,7 @@ body{
     border-radius: 20px;
     border-style: none;
     background-color: greenyellow;
+    box-shadow: -4px 4px 3px rgb(85, 85, 85);
 }
 
 .building button:hover{
@@ -159,40 +130,26 @@ body{
 }
 
 .collectedResources{
-    width: 20vw;
+    width: 100%;
     text-align: center;
     background-color: burlywood;
     border-radius: 10px;
-    font-size: 2vw;
-    box-shadow: 0px 4px 3px rgb(85, 85, 85);
+    font-size: 5vw;
+    box-shadow: -4px 4px 3px rgb(85, 85, 85);
 }
 
 .resourcesCollection button{
     margin-top: 10px;
-    width: 20vw;
+    width: 100%;
     border-radius: 10px;
     border-style: none;
-    font-size: 2vw;
+    font-size: 5vw;
     background-color: greenyellow;
-    box-shadow: 0px 4px 3px rgb(85, 85, 85);
+    box-shadow: -4px 4px 3px rgb(85, 85, 85);
 }
 
 .resourcesCollection button:hover{
     background-color: green;   
-}
-
-.btn{
-    width: 23.2vw;
-    border-radius: 10px;
-    border-style: none;
-    background-color: lightgray;
-    margin-top: 10px;
-    font-size: 2vh;
-    box-shadow: -2px 2px 3px rgb(85, 85, 85)
-}
-
-.btn:hover{
-    background-color: lightslategray;
 }
 
 .achievments{
@@ -200,11 +157,11 @@ body{
     flex-direction: column;
     gap: 5px;
 
-    font-size: 2vh;
+    font-size: 3vh;
 }
 
 .achievementLocked{
-    width: 25%;
+    width: 100%;
     padding: 3px;
     background-color: darkgrey;
 
@@ -212,12 +169,13 @@ body{
 }
 
 .achievementUnlocked{
-    width: 25%;
+    width: 100%;
     padding: 3px;
     background-color: greenyellow;
 
     border-radius: 5px;
 }
+
 
 .popup {
     display: none; 
@@ -233,9 +191,9 @@ body{
 .popup-content {
     background-color: #fff;
     margin: 10% auto;
-    margin-top: 1%;
+    margin-top: 5%;
     padding: 20px;
-    width: 45vw;
+    width: 80vw;
     height: 70vh;
     border-radius: 10px;
     text-align: center;
@@ -266,6 +224,7 @@ body{
     width: 100%;
 }
 
+
 .info{
     display: none; 
     position: fixed;
@@ -290,3 +249,4 @@ body{
     font-size: 2vh;
 }
 
+}

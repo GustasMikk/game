@@ -33,6 +33,11 @@ const container = document.getElementById('achievments');
 const popup = document.getElementById('leaderboardPopup');
 const infoPopup = document.getElementById('infoPopup');
 
+const formatter = new Intl.NumberFormat('en', {
+  notation: 'compact',
+  compactDisplay: 'short'
+});
+
 // load stats
 
 function loadStats(){
@@ -51,10 +56,10 @@ function loadStats(){
     .then(data => {
         document.getElementById('greeting').textContent = "Hello, " + data.name;
 
-        document.getElementById('money').textContent = "Coins: " + data.money;
-        document.getElementById('wood').textContent = "Wood: " + data.wood;
-        document.getElementById('stone').textContent = "Stone: " + data.stone;
-        document.getElementById('food').textContent = "Food: " + data.food;
+        document.getElementById('money').textContent = "Coins: " + formatter.format(data.money);
+        document.getElementById('wood').textContent = "Wood: " + formatter.format(data.wood);
+        document.getElementById('stone').textContent = "Stone: " + formatter.format(data.stone);
+        document.getElementById('food').textContent = "Food: " + formatter.format(data.food);
 
         document.getElementById('lumbermill').textContent = "Lumber mill level : " + data.lumber_mill_level;
         document.getElementById('quarry').textContent = "Quarry level:  " + data.quarry_level;

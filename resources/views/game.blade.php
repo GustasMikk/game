@@ -6,13 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
-    <link rel="stylesheet" href="{{ asset('css/game.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/game-phone.css') }}"  >
+    <link rel="stylesheet" href="{{ asset('css/game.css') }}" media="(min-width: 767px)">
 </head>
 <body>
     <div class="top">
-        <div class="greeting">
-            <h2 id="greeting">Hello, x</h2>
-            <button id="logoutBtn">Log out</button>
+            <div class="greeting">
+                <h2 id="greeting">Hello, x</h2>
+                <button id="logoutBtn">Log out</button>
         </div>
 
         <div class="resources">
@@ -27,19 +28,19 @@
     <button id="showInfo" class="btn">Game INFO</button>
 
     <div class="buildings">
-        <div class="building">
-            <img src="{{ asset('photos/lumbermill.png') }}" alt="">
+        <div class="building building1">
+            <img src="{{ asset('photos/lumbermill.png') }}" alt="" >
             <p id="lumbermill">Lumbermill level: 0</p>
             <button id="upgradeLumbermill">Upgrade cost: x</button> 
         </div>
-        <div class="building">
+        <div class="building building2">
             <img src="{{ asset('photos/quarry.png') }}" alt="">
             <p id="quarry">Quarry level: 0</p>
             <button id="upgradeQuarry">Upgrade cost: x</button>
         </div>
 
-        <div class="building">
-            <img src="{{ asset('photos/farm.png') }}" alt="">
+        <div class="building building3">
+            <img src="{{ asset('photos/farm.png') }}" alt=""> 
             <p id="farm">Farm level: 0</p>
             <button id="upgradeFarm">Upgrade cost: x</button>
         </div>
