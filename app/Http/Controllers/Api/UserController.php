@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\Log;
-//use Illuminate\Foundation\Auth\User;
+// use Illuminate\Foundation\Auth\User;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 
@@ -18,11 +17,11 @@ class UserController extends Controller
             'name' => ['required', 'min:5', 'unique:users,name'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'min:8'],
-        ],[
+        ], [
             'name.min' => 'Username must be atleast 5 characters long',
             'name.unique' => 'That username is already taken.',
             'email.unique' => 'This email is already registered.',
-            'password.min' => 'Password must be at least 8 characters.'
+            'password.min' => 'Password must be at least 8 characters.',
         ]);
 
         $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
@@ -59,7 +58,7 @@ class UserController extends Controller
         return response()->json([
             'message' => 'User created',
             'user' => $user,
-            'token' => $token
+            'token' => $token,
         ], 201);
     }
 
@@ -67,9 +66,9 @@ class UserController extends Controller
     {
         $credentials = $request->validate([
             'name' => ['required'],
-            'password' => ['required']
+            'password' => ['required'],
         ]);
-    
+
         $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
             'secret' => config('recaptcha.secret_key'),
             'response' => $request->input('g-recaptcha-response'),
@@ -81,12 +80,12 @@ class UserController extends Controller
         if (! ($result['success'] ?? false)) {
             return back()->withErrors(['captcha' => 'CAPTCHA verification failed']);
         }
-        
+
         $user = User::where('name', $credentials['name'])->first();
 
         if (! $user || ! Hash::check($credentials['password'], $user->password)) {
             return response()->json([
-                'message' => 'Username or password is incorrect'
+                'message' => 'Username or password is incorrect',
             ], 401);
         }
 
@@ -95,7 +94,7 @@ class UserController extends Controller
         return response()->json([
             'message' => 'Login successful',
             'user' => $user,
-            'token' => $token
+            'token' => $token,
         ]);
     }
 
@@ -104,7 +103,7 @@ class UserController extends Controller
         $request->user()->currentAccessToken()->delete();
 
         return response()->json([
-            'message' => 'Logged out'
+            'message' => 'Logged out',
         ]);
     }
 }

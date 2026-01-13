@@ -32,7 +32,7 @@ class User extends Authenticatable
         'quarry_level',
         'farm_level',
 
-        'achievment_level'
+        'achievment_level',
     ];
 
     /**

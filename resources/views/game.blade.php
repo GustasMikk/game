@@ -11,9 +11,9 @@
 </head>
 <body>
     <div class="top">
-            <div class="greeting">
-                <h2 id="greeting">Hello, x</h2>
-                <button id="logoutBtn">Log out</button>
+        <div class="greeting">
+            <h2 id="greeting">Hello, x</h2>
+            <button id="logoutBtn">Log out</button>
         </div>
 
         <div class="resources">

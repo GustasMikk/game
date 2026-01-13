@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
-use Nette\Utils\Json;
-use App\Game\IncomeCalc;
 use App\Game\Achievments;
+use App\Game\IncomeCalc;
 use App\Game\UpgradeCost;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
-    public function loadStats(){
+    public function loadStats()
+    {
         $user = auth()->user();
 
         return response()->json([
@@ -25,11 +25,12 @@ class GameController extends Controller
 
             'lumber_mill_level' => $user->lumber_mill_level,
             'quarry_level' => $user->quarry_level,
-            'farm_level' => $user->farm_level
+            'farm_level' => $user->farm_level,
         ]);
     }
 
-    public function loadPrices(UpgradeCost $costCalc){
+    public function loadPrices(UpgradeCost $costCalc)
+    {
         $user = auth()->user();
 
         $response = $costCalc->calcCost($user);
@@ -37,17 +38,19 @@ class GameController extends Controller
         return response()->json($response);
     }
 
-    public function collectResources(IncomeCalc $income){
+    public function collectResources(IncomeCalc $income)
+    {
         $user = auth()->user();
 
         $income->calc($user);
 
         return response()->json([
-            'message' => 'Collected money'
+            'message' => 'Collected money',
         ]);
     }
 
-    public function checkCollectable(IncomeCalc $income){
+    public function checkCollectable(IncomeCalc $income)
+    {
         $user = auth()->user();
 
         $earned = $income->calc2($user);
@@ -55,25 +58,26 @@ class GameController extends Controller
         return response()->json($earned);
     }
 
-    public function upgrade(Request $request, UpgradeCost $costCalc){
+    public function upgrade(Request $request, UpgradeCost $costCalc)
+    {
         $building = $request->input('building');
         $user = auth()->user();
 
-        $levelField = $building . '_level';
+        $levelField = $building.'_level';
         $currentLevel = $user->$levelField;
 
         $cost = $costCalc->cost($building, $currentLevel);
         $userResources = [$user->money, $user->wood, $user->stone];
         $canBuy = true;
 
-        for ($i = 0; $i < 3; $i++){
-            if ($cost[$i] > $userResources[$i]){
+        for ($i = 0; $i < 3; $i++) {
+            if ($cost[$i] > $userResources[$i]) {
                 $canBuy = false;
                 break;
             }
         }
 
-        if (!$canBuy){
+        if (! $canBuy) {
             return response()->json(['message' => 'Not enough money'], 400);
         }
 
@@ -84,11 +88,12 @@ class GameController extends Controller
         $user->save();
 
         return response()->json([
-            'message' => 'Successfuly upgraded'
+            'message' => 'Successfuly upgraded',
         ]);
     }
 
-    public function getAchievments(Achievments $achievments){
+    public function getAchievments(Achievments $achievments)
+    {
         $user = auth()->user();
 
         $response = $achievments->getAchievments();
@@ -96,19 +101,19 @@ class GameController extends Controller
         $achievmentLevel = $user->achievment_level;
         $achieved = true;
 
-        for ($i = $achievmentLevel; $i < 8; $i++){
+        for ($i = $achievmentLevel; $i < 8; $i++) {
             $achieved = true;
-            $key = 'achievment' . ($i+1);
+            $key = 'achievment'.($i + 1);
             $neededResources = [$response[$key]['money'], $response[$key]['wood'], $response[$key]['stone'], $response[$key]['food']];
 
-            for ($j = 0; $j < 4; $j++){
-                if ($userResources[$j] < $neededResources[$j]){
+            for ($j = 0; $j < 4; $j++) {
+                if ($userResources[$j] < $neededResources[$j]) {
                     $achieved = false;
                     break;
                 }
             }
 
-            if ($achieved){
+            if ($achieved) {
                 $user->achievment_level++;
             }
         }
@@ -117,30 +122,29 @@ class GameController extends Controller
         $result = [];
         $achievmentLevel = $user->achievment_level;
 
-        for ($i = 0; $i < 8; $i++){
+        for ($i = 0; $i < 8; $i++) {
             $a = 'true';
-            if(($i+1) > $achievmentLevel){
+            if (($i + 1) > $achievmentLevel) {
                 $a = 'false';
             }
 
-
-            $key = 'achievment' . ($i+1);
+            $key = 'achievment'.($i + 1);
             $result[] = [
                 'name' => $response[$key]['name'],
-                'achieved' => $a
+                'achieved' => $a,
             ];
         }
-
 
         return response()->json($result);
     }
 
-    public function getLeaderboard(){
+    public function getLeaderboard()
+    {
         $topPlayers = User::select('name')
-        ->selectRaw('(lumber_mill_level + quarry_level + farm_level) as total_level')
-        ->orderByDesc('total_level')
-        ->limit(50)
-        ->get();
+            ->selectRaw('(lumber_mill_level + quarry_level + farm_level) as total_level')
+            ->orderByDesc('total_level')
+            ->limit(50)
+            ->get();
 
         return response()->json($topPlayers);
     }

@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
@@ -18,8 +17,8 @@ class UserSeeder extends Seeder
     {
         for ($i = 1; $i <= 50; $i++) {
             User::create([
-                'name' => 'Player ' . $i,
-                'email' => 'player' . $i . '@game.test',
+                'name' => 'Player '.$i,
+                'email' => 'player'.$i.'@game.test',
                 'password' => Hash::make('password'),
 
                 'money' => rand(0, 3000),
@@ -31,7 +30,7 @@ class UserSeeder extends Seeder
                 'quarry_level' => rand(0, 100),
                 'farm_level' => rand(0, 100),
 
-                'achievment_level' => rand(0, 4)
+                'achievment_level' => rand(0, 4),
             ]);
         }
     }
