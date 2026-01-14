@@ -12,17 +12,22 @@ cd to/project/
 composer install
 ```
 
-4. **Copy .env file**:
+4. **Install npm**:
+```
+npm install
+```
+
+5. **Copy .env file**:
 ```
 copy .env.example .env
 ```
 
-5. **Generate key**:
+6. **Generate key**:
 ```
 php artisan key:generate
 ```
 
-6. **Create database** and update these lines in .env according to your database:
+7. **Create database** and update these lines in .env according to your database:
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -32,13 +37,20 @@ DB_USERNAME=root
 DB_PASSWORD= 
 ``` 
 
-7. **Run migrations and seeders** to create tables with users for leaderboard:
+8. **Run migrations and seeders** to create tables with users for leaderboard:
 ```
 php artisan migrate --seed
 ```
 
 
-6. **Run the project** and open it in web browser http://127.0.0.1:8000:
+9. **Run the project** and open it in web browser http://127.0.0.1:8000:
 ```
 php artisan serve
+// in separate terminal:
+npm run dev
+```
+
+10 For tests run:
+```
+php artisan test
 ```

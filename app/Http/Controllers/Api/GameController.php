@@ -70,6 +70,7 @@ class GameController extends Controller
         $userResources = [$user->money, $user->wood, $user->stone];
         $canBuy = true;
 
+        // check if user can afford
         for ($i = 0; $i < 3; $i++) {
             if ($cost[$i] > $userResources[$i]) {
                 $canBuy = false;
@@ -101,11 +102,13 @@ class GameController extends Controller
         $achievmentLevel = $user->achievment_level;
         $achieved = true;
 
+        // check for each achievment if its unlocked
         for ($i = $achievmentLevel; $i < 8; $i++) {
             $achieved = true;
             $key = 'achievment'.($i + 1);
             $neededResources = [$response[$key]['money'], $response[$key]['wood'], $response[$key]['stone'], $response[$key]['food']];
 
+            // check for each resource if its enough for achievment
             for ($j = 0; $j < 4; $j++) {
                 if ($userResources[$j] < $neededResources[$j]) {
                     $achieved = false;
@@ -122,6 +125,7 @@ class GameController extends Controller
         $result = [];
         $achievmentLevel = $user->achievment_level;
 
+        // return achievments, mark achieved ones and not
         for ($i = 0; $i < 8; $i++) {
             $a = 'true';
             if (($i + 1) > $achievmentLevel) {

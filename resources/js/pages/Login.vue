@@ -35,5 +35,4 @@
   </div>
 </template>
 
-<script src="./login.js"></script>
-<style src="./login.css" scoped></style>
+<script src="../login.js"></script>

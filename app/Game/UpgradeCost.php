@@ -6,6 +6,7 @@ use App\Models\User;
 
 class upgradeCost
 {
+    // return cost for specific building
     public function cost(string $building, int $currentLevel): array
     {
         return match ($building) {
@@ -16,6 +17,7 @@ class upgradeCost
         };
     }
 
+    // return costs for all building to update on page
     public function calcCost(User $user): array
     {
         $buildingCost = [

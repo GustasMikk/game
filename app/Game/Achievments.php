@@ -4,6 +4,7 @@ namespace App\Game;
 
 class Achievments
 {
+    // achievments saved here
     public function getAchievments(): array
     {
         return ['achievment1' => ['name' => 'Collect 1000 coins', 'money' => 1000, 'wood' => 0, 'stone' => 0, 'food' => 0],

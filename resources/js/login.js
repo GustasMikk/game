@@ -59,7 +59,7 @@ export default {
         }
       } catch (err) {
         console.error(err);
-        this.message = "An error occurred";
+        this.message = "Something went wrong";
         grecaptcha.reset();
       } finally {
         this.loading = false;
